@@ -1,0 +1,19 @@
+<form [formGroup]="loginForm" (ngSubmit)="handleSubmit()" class="container mt-5 p-4 border rounded shadow" style="max-width: 400px">
+  <h4 class="mb-4 text-center text-primary">Iniciar Sesión</h4>
+
+  <div class="mb-3">
+    <label for="correo" class="form-label">Ingrese su correo</label>
+    <input id="correo" type="email" formControlName="correo" class="form-control" placeholder="ejemplo@correo.com">
+  </div>
+
+  <div class="mb-3">
+    <label for="contraseña" class="form-label">Ingrese su contraseña</label>
+    <input id="contraseña" type="password" formControlName="contrasena" class="form-control" >
+  </div>
+
+  <div class="d-grid gap-2">
+    <button type="submit" class="btn btn-primary">Ingresa</button>
+    <a routerLink="/signUp" class="btn btn-outline-secondary">Registrarse</a>
+
+  </div>
+</form>

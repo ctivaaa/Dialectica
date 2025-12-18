@@ -1,0 +1,7 @@
+body {
+  overflow-x: hidden;
+}
+
+.card-header {
+  font-weight: bold;
+}

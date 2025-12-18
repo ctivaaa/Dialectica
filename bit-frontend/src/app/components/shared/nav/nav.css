@@ -1,0 +1,31 @@
+.custom-link {
+  color: #444;
+  font-weight: 500;
+  position: relative;
+  text-decoration: none;
+  transition: all 0.3s ease-in-out;
+}
+
+.custom-link:hover,
+.custom-link:focus,
+.custom-link.router-link-active {
+  color: #E85C4A;
+  font-weight: 600;
+}
+
+.custom-link::after {
+  content: '';
+  position: absolute;
+  bottom: -0.25rem;
+  left: 0;
+  width: 0%;
+  height: 0.125rem;
+  background-color: #FFD166;
+  transition: width 0.3s ease;
+}
+
+.custom-link:hover::after,
+.custom-link.router-link-active::after {
+  width: 100%;
+}
+

@@ -1,0 +1,31 @@
+
+<div class="d-flex justify-content-center align-items-center vh-100 bg-light">
+<form [formGroup]="registerForm" (ngSubmit)="handleSubmit()" class="container mt-5 p-4 border rounded shadow-sm bg-white" style="max-width: 500px;">
+  <h4 class="mb-4 text-center text-success">Crear una cuenta</h4>
+
+  <div class="mb-3">
+    <label for="nombreCompleto" class="form-label">Ingrese su nombre</label>
+    <input id="nombreCompleto" type="text" formControlName="nombre" class="form-control" placeholder="Juan Pérez">
+  </div>
+
+  <div class="mb-3">
+    <label for="correo" class="form-label">Ingrese su correo</label>
+    <input id="correo" type="email" formControlName="correo" class="form-control" placeholder="correo@ejemplo.com">
+  </div>
+
+  <div class="mb-3">
+    <label for="contrasena" class="form-label">Ingrese su contraseña</label>
+    <input id="contrasena" type="password" formControlName="contrasena" class="form-control" >
+  </div>
+
+  <div class="mb-3">
+    <label for="contrasena2" class="form-label">Confirme su contraseña</label>
+    <input id="contrasena2" type="password" formControlName="contrasena2" class="form-control" >
+  </div>
+
+  <div class="d-grid mt-4">
+    <button type="submit" class="btn btn-success">Regístrate</button>
+  </div>
+</form>
+
+</div>

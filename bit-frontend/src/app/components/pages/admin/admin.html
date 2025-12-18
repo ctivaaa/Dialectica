@@ -1,0 +1,175 @@
+<p class="h4 text-center my-3 text-primary">Bienvenido {{ userName }}</p>
+
+<div class="container-fluid mb-4">
+  <form [formGroup]="crudForm" (ngSubmit)="handleSubmit()" class="d-flex gap-2 justify-content-center" role="search">
+    <input formControlName="_id" class="form-control me-2 w-25" type="search" placeholder="Busque por ISBN" aria-label="Busque por ISBN"/>
+    
+    <button class="btn btn-outline-success" type="submit">Buscar</button>
+    
+    @if (busqueda) {
+      <button type="button" (click)="vuelve()" class="btn btn-outline-secondary">
+        Volver
+      </button>
+    }
+  </form>
+</div>
+
+<div class="text-center mb-4">
+  <button type="submit" (click)="handleAgregar()" class="btn btn-primary">Agregar</button>
+</div>
+
+<!-- FORMULARIO DE AGREGAR LIBRO -->
+@if (agrega) {
+  <form [formGroup]="agregando" (ngSubmit)="agregarLibro()" class="container border p-4 rounded shadow-sm mb-4" style="max-width: 600px;">
+    <div class="mb-3">
+      <label for="titulo" class="form-label">Título del libro:</label>
+      <input id="titulo" type="text" formControlName="titulo" class="form-control">
+    </div>
+    <div class="mb-3">
+      <label for="autor" class="form-label">Autor:</label>
+      <input id="autor" type="text" formControlName="autor" class="form-control">
+    </div>
+    <div class="mb-2">
+  <label for="calcetin" class="form-label">Calcetín:</label>
+  <select id="calcetin" formControlName="calcetin" class="form-select">
+    <option value="" disabled selected>Seleccione un calcetín</option>
+    <option value="Rojo">Rojo</option>
+    <option value="Verde">Verde</option>
+    <option value="Amarillo">Amarillo</option>
+    <option value="Azul">Azul</option>
+  </select>
+</div>
+    <div class="mb-3">
+      <label for="valor" class="form-label">Ingrese su valor:</label>
+      <input id="valor" type="number" formControlName="valor" class="form-control">
+    </div>
+    <div class="mb-3">
+      <label for="unidades" class="form-label">Unidades:</label>
+      <input id="unidades" type="number" formControlName="unidades" class="form-control">
+    </div>
+    <div class="mb-3">
+      <label for="_id" class="form-label">ISBN:</label>
+      <input id="_id" type="number" formControlName="_id" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-success w-100">Confirma</button>
+  </form>
+}
+
+@if (busqueda) {
+  <div class="card text-center shadow-sm my-3">
+    <div class="card-header fw-bold bg-info text-white">Calcetín: {{ busqueda.calcetin }}</div>
+    <div class="card-body">
+      <h5 class="card-title">{{ busqueda.titulo }}</h5>
+      <p class="card-text">{{ busqueda.autor }}</p>
+      <p class="card-text">ISBN: {{ busqueda._id }}</p>
+      <button (click)="eliminar(busqueda._id)" class="btn btn-danger me-2">Eliminar</button>
+      <button (click)="handleActualizar(busqueda)" class="btn btn-warning">Modificar</button>
+
+        @if (editandoId === busqueda._id) {
+          <div class="mt-3">
+            <form [formGroup]="actualizando" (ngSubmit)="actualizar(busqueda._id)" class="border p-3 rounded bg-light">
+              <div class="mb-2">
+                <label for="titulo" class="form-label">Título del libro:</label>
+                <input id="titulo" type="text" formControlName="titulo" class="form-control">
+              </div>
+              <div class="mb-2">
+                <label for="autor" class="form-label">Autor:</label>
+                <input id="autor" type="text" formControlName="autor" class="form-control">
+              </div>
+              <div class="mb-2">
+  <label for="calcetin" class="form-label">Calcetín:</label>
+  <select id="calcetin" formControlName="calcetin" class="form-select">
+    <option value="" disabled selected>Seleccione un calcetín</option>
+    <option value="Rojo">Rojo</option>
+    <option value="Verde">Verde</option>
+    <option value="Amarillo">Amarillo</option>
+    <option value="Azul">Azul</option>
+  </select>
+</div>
+              <div class="mb-2">
+                <label for="valor" class="form-label">Ingrese su valor:</label>
+                <input id="valor" type="number" formControlName="valor" class="form-control">
+              </div>
+              <div class="mb-2">
+                <label for="unidades" class="form-label">Unidades:</label>
+                <input id="unidades" type="number" formControlName="unidades" class="form-control">
+              </div>
+              <div class="mb-2">
+                <label for="_id" class="form-label">ISBN:</label>
+                <input id="_id" type="number" formControlName="_id" class="form-control">
+              </div>
+              <button type="submit" class="btn btn-success w-50">Confirma</button>
+              <button type="submit" (click)="cancelarEdicion()" class="btn btn-success w-50">Vuelve sin guardar</button>
+            </form>
+          </div>
+        }
+    </div>
+    <div class="card-footer text-muted">
+      Unidades: {{ busqueda.unidades }}
+      <p>Valor: {{ busqueda.valor }}</p>
+    </div>
+  </div>
+} @else {
+  @for (i of libros; track $index) {
+    <div class="card text-center shadow-sm my-3">
+      <div class="card-header fw-bold bg-secondary text-white">Calcetín: {{ i.calcetin }}</div>
+      <div class="card-body">
+        <h5 class="card-title">{{ i.titulo }}</h5>
+        <p class="card-text">{{ i.autor }}</p>
+        <p class="card-text">ISBN: {{ i._id }}</p>
+        <button (click)="eliminar(i._id)" class="btn btn-danger me-2">Eliminar</button>
+        <button (click)="handleActualizar(i)" class="btn btn-warning">Modificar</button>
+
+        @if (editandoId === i._id) {
+          <div class="mt-3">
+            <form [formGroup]="actualizando" (ngSubmit)="actualizar(i._id)" class="border p-3 rounded bg-light">
+              <div class="mb-2">
+                <label for="titulo" class="form-label">Título del libro:</label>
+                <input id="titulo" type="text" formControlName="titulo" class="form-control">
+              </div>
+              <div class="mb-2">
+                <label for="autor" class="form-label">Autor:</label>
+                <input id="autor" type="text" formControlName="autor" class="form-control">
+              </div>
+
+              <div class="mb-2">
+  <label for="calcetin" class="form-label">Calcetín:</label>
+  <select id="calcetin" formControlName="calcetin" class="form-select">
+    <option value="" disabled selected>Seleccione un calcetín</option>
+    <option value="Rojo">Rojo</option>
+    <option value="Verde">Verde</option>
+    <option value="Amarillo">Amarillo</option>
+    <option value="Azul">Azul</option>
+  </select>
+</div>
+<!-- 
+              <div class="mb-2">
+                <label for="calcetin" class="form-label">Calcetín:</label>
+                <input id="calcetin" type="text" formControlName="calcetin" class="form-control">
+              </div> -->
+              <div class="mb-2">
+                <label for="valor" class="form-label">Ingrese su valor:</label>
+                <input id="valor" type="number" formControlName="valor" class="form-control">
+              </div>
+              <div class="mb-2">
+                <label for="unidades" class="form-label">Unidades:</label>
+                <input id="unidades" type="number" formControlName="unidades" class="form-control">
+              </div>
+              <div class="mb-2">
+                <label for="_id" class="form-label">ISBN:</label>
+                <input id="_id" type="number" formControlName="_id" class="form-control">
+              </div>
+              <button type="submit" class="btn btn-success w-50">Confirma</button>
+              <button type="submit" (click)="cancelarEdicion()" class="btn btn-secondary w-50">Vuelve sin guardar</button>
+            </form>
+          </div>
+        }
+      </div>
+      <div class="card-footer text-muted">
+        Unidades: {{ i.unidades }}
+        <p>Valor: {{ i.valor | number:'1.0-0' }}</p>
+      </div>
+    </div>
+  }
+}
+

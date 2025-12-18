@@ -1,0 +1,59 @@
+<div class="container-fluid" s>
+  <form [formGroup]="buscando" (ngSubmit)="handleSubmit()" class="d-flex gap-2" role="search">
+    <input formControlName="_id" class="form-control me-2" type="search" placeholder="Busque por ISBN" aria-label="Busque por ISBN"/>
+    
+    <button class="btn btn-outline-success" type="submit">Buscar</button>
+    
+    @if (busqueda) {
+      <button type="button" (click)="vuelve()" class="btn btn-outline-secondary">
+        Volver
+      </button>
+    }
+  </form>
+</div>
+
+
+
+<section class="py-5" style="background-color: #F9F9F9;display: flex; align-items:center ;">
+  <div class="container" >
+    <!-- Si busca muestra solo un libro -->
+    @if (busqueda) {
+      <div class="row justify-content-center">
+        <div class="col-12 col-md-6 col-lg-4">
+          <div class="card h-100 shadow-sm">
+            <div class="card-body text-center">
+              <h5 class="card-title">{{ busqueda.titulo }}</h5>
+              <p class="card-text text-muted">Autor: {{ busqueda.autor }}</p>
+              <p class="card-text text-muted">Valor: ${{ busqueda.valor | number:"1.0-0" }}</p>
+              <p class="card-text text-muted">Unidades disponibles: {{ busqueda.unidades }}</p>
+              <p class="card-text text-muted">Calcetin: {{ busqueda.calcetin }}</p>
+              <p class="card-text text-muted">ISBN: {{ busqueda._id }}</p>
+              <a href="https://wa.me/573124765407?text=Vengo20%de20%la20%pagina20%web20%y20%Quiero%20comprar%20este%20{{busqueda.titulo}}
+" class="btn btn-sm btn-primary">Comprar</a> 
+ 
+            </div>
+          </div>
+        </div>
+      </div>
+    } @else {
+      <!-- Si no hay búsqueda, muestra todos -->
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+        @for (i of libros; track $index) {
+          <div class="col">
+            <div class="card h-100 shadow-sm">
+              <div class="card-body text-center">
+                <h5 class="card-title">{{ i.titulo }}</h5>
+                <p class="card-text text-muted">Autor: {{ i.autor }}</p>
+                <p class="card-text text-muted">Valor: ${{ i.valor | number:"1.0-0" }}</p>
+                <p class="card-text text-muted">Unidades disponibles: {{ i.unidades }}</p>
+                <p class="card-text text-muted">Calcetin: {{ i.calcetin }}</p>
+                <p class="card-text text-muted">ISBN: {{ i._id }}</p>
+                <a href="https://wa.me/573124765407?text=Vengo%20de%20la%20pagina%20web%20y%20Quiero%20comprar%20el%20libro%20{{i.titulo}}" class="btn btn-sm btn-primary">Comprar</a>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    }
+  </div>
+</section>

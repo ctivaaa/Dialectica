@@ -1,0 +1,66 @@
+
+<section class="py-5 text-center" style="background-color: #FDF6F0;">
+  <div class="container">
+    <h1 class="display-5 fw-bold" style="color: #3C5372;">
+      Bienvenido a <span style="color: #3C5372;">Ediciones Dialécticas MYM</span>
+    </h1>
+    <p class="lead text-muted">
+      Promovemos el conocimiento y la lectura con libros pensados para transformar mentes y corazones.
+    </p>
+    <a routerLink="/libros" class="btn btn-primary mt-3">Explora nuestros libros</a>
+  </div>
+</section>
+
+<section class="py-5" style="background-color: #F9F9F9;">
+  <div class="container">
+    <h2 class="text-center mb-5 fw-bold" style="color: #3C5372;">Libros destacados</h2>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+
+      @if (libros) {
+      @for (i of libros; track $index) {
+        @if ($index < 3) {
+<div class="col">
+            <div class="card h-100 shadow-sm">
+
+              <div class="card-body text-center">
+                <h5 class="card-title">{{ i.titulo }}</h5>
+                <p class="card-text text-muted">Autor: {{ i.autor }}</p>
+                <p class="card-text text-muted">Valor: ${{ i.valor | number:"1.0-0" }}</p>
+                <p class="card-text text-muted">Unidades disponibles: {{ i.unidades }}</p>
+                <a routerLink="/libros" class="btn btn-sm btn-primary">Ver más</a>
+              </div>
+            </div>
+          </div>
+        }
+        }
+      } @else {
+        <p class="text-center text-muted">Cargando libros...</p>
+      }
+
+    </div>
+  </div>
+</section>
+
+
+
+<section class="py-5 bg-white">
+  <div class="container">
+    <div class="row align-items-center g-4">
+      <div class="col-md-6">
+        <img src="LOGO.jpg"  class="img-fluid rounded shadow" >
+      </div>
+      <div class="col-md-6">
+        <h2 class="fw-bold mb-3" style="color: #E85C4A;">Sobre nosotros</h2>
+        <p class="text-muted">
+          Somos una editorial independiente dedicada a publicar obras educativas, culturales y literarias que impactan
+          positivamente en la sociedad. Colaboramos con instituciones educativas y autores comprometidos con la transformación
+          del pensamiento.
+        </p>
+        <a routerLink="/nosotros" class="btn btn-outline-primary mt-3">Conócenos más</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+

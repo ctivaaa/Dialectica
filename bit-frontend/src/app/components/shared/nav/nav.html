@@ -1,0 +1,47 @@
+<nav class="navbar navbar-expand-lg fixed-top shadow-sm" style="background-color: #F9F9F9; margin-bottom: 4rem;">
+  <div class="container-fluid" >
+    <a class="navbar-brand d-flex align-items-center gap-2" routerLink="/inicio">
+      <span class="fs-5 fw-semibold" style="color: #1150a3;">EDICIONES DIALECTICA MYM</span>
+    </a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title">Menú</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+      </div>
+
+      <div class="offcanvas-body">
+        <ul class="navbar-nav ms-auto gap-3">
+          <li class="nav-item">
+            <a class="nav-link custom-link" routerLink="/libros">Libros</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link custom-link" routerLink="/nosotros">Nosotros</a>
+          </li>
+
+          @if (signinService.userValid())
+          {
+            @if (signinService.adminValid())
+            {
+              <li class="nav-item">
+                <a class="nav-link custom-link" routerLink="/admin">Admin</a>
+              </li>
+            }
+            <li class="nav-item">
+              <a class="nav-link custom-link" routerLink="/inicio" (click)="signinService.logoutUser()">Cerrar Sesión</a>
+            </li>
+          }
+          @else {
+            <li class="nav-item">
+              <a class="nav-link custom-link" routerLink="/login">Iniciar Sesión</a>
+            </li>
+          }
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav >
